@@ -13,13 +13,13 @@ public class Display : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        displayManager.Awake();
         displayManager.updateDisplay += UpdateDisplay;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     /// <summary>
@@ -30,10 +30,11 @@ public class Display : MonoBehaviour
         if (curCanvas)
         {
             curArtifact.InvokeOffDisplay();
-            curCanvas = null;
-            curArtifact = null;
 
             Destroy(curCanvas);
+
+            curCanvas = null;
+            curArtifact = null;
         }
     }
 
@@ -43,6 +44,7 @@ public class Display : MonoBehaviour
     /// <param name="art"> The new artifact to display (can be null) </param>
     void UpdateDisplay(ArtifactInfoSO art)
     {
+        print("Updating display");
         // start by clearing display
         ClearDisplay();
         
@@ -54,7 +56,6 @@ public class Display : MonoBehaviour
         // if there's an artifact to display, then display it
         art.InvokeOnDisplay();
         curArtifact = art;
-        curCanvas = Instantiate(art.canvasPrefab);
-        curCanvas.transform.parent = displayCanvasParent;
+        curCanvas = Instantiate(art.canvasPrefab, displayCanvasParent);
     }
 }

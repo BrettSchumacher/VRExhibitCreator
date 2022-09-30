@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[CreateAssetMenu(fileName = "ExhibitManager", menuName = "ExhibitCreator/Exhibit Manager")]
+[CreateAssetMenu(fileName = "ExhibitManager", menuName = "ExhibitCreator/Managers/Exhibit Manager")]
 public class ExhibitManagerSO : ScriptableObject
 {
     public UnityAction<Transform, Transform> onGrab;

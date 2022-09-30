@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+[CreateAssetMenu(fileName = "Artifact", menuName = "ExhibitCreator/Objects/Artifact")]
 public class ArtifactInfoSO : ScriptableObject
 {
     public GameObject canvasPrefab;

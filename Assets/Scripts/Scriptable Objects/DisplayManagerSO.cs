@@ -3,17 +3,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-[CreateAssetMenu(fileName = "DisplayManager", menuName = "ExhibitCreator/Display Manager")]
-
+[CreateAssetMenu(fileName = "DisplayManager", menuName = "ExhibitCreator/Managers/Display Manager")]
 public class DisplayManagerSO : ScriptableObject
 {
     public ExhibitManagerSO exhibitManager;
 
     public UnityAction<ArtifactInfoSO> updateDisplay;
 
+    bool addedToExhibit = false;
+
     public void Awake()
     {
-        exhibitManager.updateMainObj += handleUpdateMainObj;
+        Debug.Log("Adding handler to exhibit manager");
+        if (exhibitManager)
+        {
+            exhibitManager.updateMainObj += handleUpdateMainObj;
+            addedToExhibit = true;
+        }
+        else
+        {
+            addedToExhibit = false;
+        }
     }
 
     /// <summary>

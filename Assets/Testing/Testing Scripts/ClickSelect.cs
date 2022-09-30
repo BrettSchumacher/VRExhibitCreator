@@ -25,6 +25,7 @@ public class ClickSelect : MonoBehaviour
             Ray ray = cam.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitInfo;
             Physics.Raycast(ray, out hitInfo);
+            print("Clicked on: " + hitInfo.collider?.name);
             exhibitManager.InvokeUpdateMainObj(hitInfo.collider?.transform);
         }
     }

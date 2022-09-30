@@ -22,8 +22,12 @@ public class Grabber : MonoBehaviour
 
     private Vector3 grabbedOffsetMain;
     private Quaternion rotOffsetMain;
-    private Vector3 holderDisplacement;
-    private Vector3 holdersCenter;
+
+    private Vector3 startingDisplacement;
+    private Vector3 startingScale;
+    private Quaternion startingRot;
+    private Vector3 startingPos;
+    private Vector3 startingCenter;
 
     private Vector3 grabbedOffsetAlt;
     private Quaternion rotOffsetAlt;
@@ -63,13 +67,13 @@ public class Grabber : MonoBehaviour
                 Vector3 newDisplacement = holderMain1.position - holderMain2.position;
 
                 // first handle scaling object
-                float scale = newDisplacement.magnitude / holderDisplacement.magnitude;
-                grabbedObjectMain.localScale *= scale;
+                float scale = newDisplacement.magnitude / startingDisplacement.magnitude;
+                grabbedObjectMain.localScale = startingScale * scale;
 
                 // now handle rotation
                 // adapted from https://stackoverflow.com/questions/1171849/finding-quaternion-representing-the-rotation-from-one-vector-to-another
-                Quaternion rot;
-                Vector3 v1 = holderDisplacement.normalized;
+                Quaternion rot = Quaternion.identity;
+                Vector3 v1 = startingDisplacement.normalized;
                 Vector3 v2 = newDisplacement.normalized;
                 Vector3 cross = Vector3.Cross(v1, v2);
                 if (cross.sqrMagnitude > 0f)
@@ -79,16 +83,14 @@ public class Grabber : MonoBehaviour
                     rot.z = cross.z;
                     rot.w = 1 + Vector3.Dot(v1, v2);
                     rot.Normalize();
-                    grabbedObjectMain.rotation *= rot;
+                    grabbedObjectMain.rotation = startingRot * rot;
                 }
 
                 // now handle offset
                 Vector3 newCenter = (holderMain1.position + holderMain2.position) / 2f;
-                grabbedObjectMain.position += newCenter - holdersCenter;
-
-                // update variables
-                holderDisplacement = newDisplacement;
-                holdersCenter = newCenter;
+                Vector3 startingOff = startingPos - startingCenter;
+                Vector3 newOff = (rot * startingOff) * scale;
+                grabbedObjectMain.position = newCenter + newOff;
             }
         }
 
@@ -137,8 +139,11 @@ public class Grabber : MonoBehaviour
     void AddHolderMain(Transform holder)
     {
         holderMain2 = holder;
-        holderDisplacement = holderMain1.position - holder.position;
-        holdersCenter = (holderMain1.position + holder.position) / 2f;
+        startingDisplacement = holderMain1.position - holder.position;
+        startingScale = grabbedObjectMain.localScale;
+        startingRot = grabbedObjectMain.rotation;
+        startingPos = grabbedObjectMain.position;
+        startingCenter = (holderMain1.position + holder.position) / 2f;
     }
 
     /// <summary>
