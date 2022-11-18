@@ -6,12 +6,14 @@ using UnityEngine.Events;
 [CreateAssetMenu(fileName = "ExhibitManager", menuName = "ExhibitCreator/Managers/Exhibit Manager")]
 public class ExhibitManagerSO : ScriptableObject
 {
-    public UnityAction<Transform, Transform> onGrab;
+    public UnityAction<GrabLogic, Transform> onGrab;
     public UnityAction<Transform> onRelease;
+    public UnityAction onNextSlide;
+    public UnityAction onBackSlide;
 
     public UnityAction<Transform> updateMainObj;
 
-    public void InvokeOnGrab(Transform obj, Transform holder)
+    public void InvokeOnGrab(GrabLogic obj, Transform holder)
     {
         onGrab?.Invoke(obj, holder);
     }
@@ -21,8 +23,13 @@ public class ExhibitManagerSO : ScriptableObject
         onRelease?.Invoke(holder);
     }
 
-    public void InvokeUpdateMainObj(Transform mainObj)
+    public void InvokeUpdateMainObj(GrabLogic mainObj)
     {
-        updateMainObj?.Invoke(mainObj);
+        if (!mainObj) return;
+        updateMainObj?.Invoke(mainObj.transform);
     }
+
+    public void InvokeOnNextSlide() { onNextSlide?.Invoke(); }
+    public void InvokeOnBackSlide() { onBackSlide?.Invoke(); }
+
 }

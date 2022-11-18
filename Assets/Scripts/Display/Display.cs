@@ -7,14 +7,19 @@ public class Display : MonoBehaviour
     public DisplayManagerSO displayManager;
     public Transform displayCanvasParent;
 
-    ArtifactInfoSO curArtifact;
+    Artifact curArtifact;
     GameObject curCanvas;
+    SlideShow slideShow;
+
+    Artifact prevArt;
 
     // Start is called before the first frame update
     void Start()
     {
         displayManager.Awake();
         displayManager.updateDisplay += UpdateDisplay;
+        displayManager.goNextSlide += NextSlide;
+        displayManager.goBackSlide += BackSlide;
     }
 
     // Update is called once per frame
@@ -35,6 +40,7 @@ public class Display : MonoBehaviour
 
             curCanvas = null;
             curArtifact = null;
+            slideShow = null;
         }
     }
 
@@ -42,8 +48,9 @@ public class Display : MonoBehaviour
     /// Event Handler for updating a display with a new artifact, or to clear display if artifact is null
     /// </summary>
     /// <param name="art"> The new artifact to display (can be null) </param>
-    void UpdateDisplay(ArtifactInfoSO art)
+    void UpdateDisplay(Artifact art)
     {
+        if (art == prevArt) return;
         print("Updating display");
         // start by clearing display
         ClearDisplay();
@@ -57,5 +64,21 @@ public class Display : MonoBehaviour
         art.InvokeOnDisplay();
         curArtifact = art;
         curCanvas = Instantiate(art.canvasPrefab, displayCanvasParent);
+        slideShow = curCanvas.GetComponent<SlideShow>();
+        prevArt = art;
+    }
+
+    void NextSlide()
+    {
+        if (!slideShow || slideShow.IsComplete()) return;
+
+        slideShow.NextSlide();
+    }
+
+    void BackSlide()
+    {
+        if (!slideShow) return;
+
+        slideShow.BackSlide();
     }
 }

@@ -26,7 +26,11 @@ public class ClickSelect : MonoBehaviour
             RaycastHit hitInfo;
             Physics.Raycast(ray, out hitInfo);
             print("Clicked on: " + hitInfo.collider?.name);
-            exhibitManager.InvokeUpdateMainObj(hitInfo.collider?.transform);
+            exhibitManager.InvokeUpdateMainObj(hitInfo.collider?.GetComponent<GrabLogic>());
+        }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            exhibitManager.InvokeOnNextSlide();
         }
     }
 

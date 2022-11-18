@@ -8,7 +8,9 @@ public class DisplayManagerSO : ScriptableObject
 {
     public ExhibitManagerSO exhibitManager;
 
-    public UnityAction<ArtifactInfoSO> updateDisplay;
+    public UnityAction<Artifact> updateDisplay;
+    public UnityAction goNextSlide;
+    public UnityAction goBackSlide;
 
     bool addedToExhibit = false;
 
@@ -18,6 +20,8 @@ public class DisplayManagerSO : ScriptableObject
         if (exhibitManager)
         {
             exhibitManager.updateMainObj += handleUpdateMainObj;
+            exhibitManager.onNextSlide += handleOnNext;
+            exhibitManager.onBackSlide += handleOnBack;
             addedToExhibit = true;
         }
         else
@@ -33,6 +37,16 @@ public class DisplayManagerSO : ScriptableObject
     void handleUpdateMainObj(Transform obj)
     {
         // will invoke updateDisplay with new artifact info or null if display should be cleared
-        updateDisplay?.Invoke(obj.GetComponent<Artifact>()?.artifactInfo);
+        updateDisplay?.Invoke(obj.GetComponent<Artifact>());
+    }
+
+    void handleOnNext()
+    {
+        goNextSlide?.Invoke();
+    }
+
+    void handleOnBack()
+    {
+        goBackSlide?.Invoke();
     }
 }
