@@ -5,7 +5,6 @@ using UnityEngine;
 public class ClickSelect : MonoBehaviour
 {
     public ExhibitManagerSO exhibitManager;
-    public DisplayManagerSO displayManager;
     public Camera cam;
 
     // Start is called before the first frame update
@@ -30,7 +29,7 @@ public class ClickSelect : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.Space))
         {
-            exhibitManager.InvokeOnNextSlide();
+            exhibitManager.InvokeOnMainInput();
         }
     }
 

@@ -24,22 +24,22 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "NextSlide",
+                    "name": "MainInput",
                     "type": "Button",
                     "id": "6b567397-2d47-411a-9dd2-f147d8020382",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
-                    "name": "BackSlide",
+                    "name": "SecondaryInput",
                     "type": "Button",
                     "id": "4b499e0e-b63b-4bfb-94cf-d9ae5db20238",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 },
                 {
                     "name": "Movement",
@@ -134,7 +134,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "VR",
-                    "action": "NextSlide",
+                    "action": "MainInput",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -145,7 +145,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "VR",
-                    "action": "NextSlide",
+                    "action": "MainInput",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -156,7 +156,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "VR",
-                    "action": "NextSlide",
+                    "action": "MainInput",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -167,7 +167,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "VR",
-                    "action": "NextSlide",
+                    "action": "MainInput",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6a3538a5-0e9e-4326-8786-1e7500418e1e",
+                    "path": "<Keyboard>/rightArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse and Keyboard",
+                    "action": "MainInput",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -178,7 +189,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "VR",
-                    "action": "BackSlide",
+                    "action": "SecondaryInput",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -189,7 +200,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "VR",
-                    "action": "BackSlide",
+                    "action": "SecondaryInput",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -200,7 +211,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "VR",
-                    "action": "BackSlide",
+                    "action": "SecondaryInput",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -211,7 +222,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "VR",
-                    "action": "BackSlide",
+                    "action": "SecondaryInput",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1ea26e73-f574-4851-afdb-29c1f9dd9ad7",
+                    "path": "<Keyboard>/leftArrow",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Mouse and Keyboard",
+                    "action": "SecondaryInput",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -275,6 +297,22 @@
                 {
                     "devicePath": "<XRController>{RightHand}",
                     "isOptional": false,
+                    "isOR": false
+                }
+            ]
+        },
+        {
+            "name": "Mouse and Keyboard",
+            "bindingGroup": "Mouse and Keyboard",
+            "devices": [
+                {
+                    "devicePath": "<Keyboard>",
+                    "isOptional": false,
+                    "isOR": false
+                },
+                {
+                    "devicePath": "<Mouse>",
+                    "isOptional": true,
                     "isOR": false
                 }
             ]
